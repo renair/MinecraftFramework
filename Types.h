@@ -1,21 +1,61 @@
 #ifndef _TYPES
 #define _TYPES
+//http://wiki.vg/index.php?title=Protocol&oldid=6003#Data_types
 
 #include<string>
+#include"Buffer.h"
 
 namespace MinecraftTypes
 {
+	struct varint;
+	struct varlong;
+
+	typedef bool Boolean;
 	typedef unsigned char Byte;
 	typedef char SByte;
 	typedef short Short;
+	typedef unsigned short UShort;
+	typedef int Int;
+	typedef long Long;
+	typedef float Float;
+	typedef double Double;
+	typedef struct varint VarInt;
+	typedef struct varlong VarLong;
+
+	struct varint
+	{
+		long _val;
+
+		varint(long);
+		unsigned short decode(char*);
+		unsigned short encode(char*);
+		varint& read(const ServiceTypes::Buffer&);
+		varint& write(ServiceTypes::Buffer&);
+		const varint operator=(long);
+		operator long();
+	};
+
+	struct varlong
+	{
+		long long _val;
+
+		varlong(long long);
+		unsigned short decode(char*);
+		unsigned short encode(char*);
+		varlong& read(const ServiceTypes::Buffer&);
+		varlong& write(ServiceTypes::Buffer&);
+		const varlong operator=(long long);
+		operator long long();
+	};
 
 	class String
 	{
 	private:
 		char* _allocator;
-		static const char _len = 64;
+		unsigned int _len;
 		void init(const char* const);
 	public:
+		String(unsigned int len);
 		String(const char* const);
 		String(const std::string&);
 		String(const String&);

@@ -2,11 +2,145 @@
 
 using namespace MinecraftTypes;
 
+//varint implementation
+
+varint::varint(long val):
+	_val(val)
+{}
+
+unsigned short varint::encode(char* destination)
+{
+	unsigned short i = 0;
+	long copy = _val;
+	do
+	{
+		char byte = copy & 0b01111111;
+		copy >>= 7;
+		if (copy != 0)
+		{
+			byte |= 0b10000000;
+		}
+		*(destination + i) = byte;
+		++i;
+	}
+	while (copy != 0);
+	return i;
+}
+
+unsigned short varint::decode(char* source)
+{
+	unsigned short i = 0;
+	char byte = 0;
+	do
+	{
+		byte = *(source + i);
+		char tmp = byte & 0b01111111;
+		_val |= tmp << (7 * i);
+		++i;
+		//TODO exception if read value stored in more than 5 bytes
+	}
+	while((byte & 0b10000000) != 0);
+	return i;
+}
+
+varint& varint::read(const ServiceTypes::Buffer& buff)
+{
+	buff.offset() += decode(buff.data()+buff.offset());
+	return *this;
+}
+
+varint& varint::write(ServiceTypes::Buffer& buff)
+{
+	buff.offset() += encode(buff.data()+buff.offset());
+	return *this;
+}
+
+const varint varint::operator=(long val)
+{
+	_val = val;
+	return *this;
+}
+
+varint::operator long()
+{
+	return _val;
+}
+
+
+//varlong implementation
+
+varlong::varlong(long long val) :
+	_val(val)
+{}
+
+unsigned short varlong::encode(char* destination)
+{
+	unsigned short i = 0;
+	long long copy = _val;
+	do
+	{
+		char byte = copy & 0b01111111;
+		copy >>= 7;
+		if (copy != 0)
+		{
+			byte |= 0b10000000;
+		}
+		*(destination + i) = byte;
+		++i;
+	} while (copy != 0);
+	return i;
+}
+
+unsigned short varlong::decode(char* source)
+{
+	unsigned short i = 0;
+	char byte = 0;
+	do
+	{
+		byte = *(source + i);
+		char tmp = byte & 0b01111111;
+		_val |= tmp << (7 * i);
+		++i;
+		//TODO exception if read value stored in more than 10 bytes
+	} while ((byte & 0b10000000) != 0);
+	return i;
+}
+
+varlong& varlong::read(const ServiceTypes::Buffer& buff)
+{
+	buff.offset() += decode(buff.data() + buff.offset());
+	return *this;
+}
+
+varlong& varlong::write(ServiceTypes::Buffer& buff)
+{
+	buff.offset() += encode(buff.data() + buff.offset());
+	return *this;
+}
+
+const varlong varlong::operator=(long long val)
+{
+	_val = val;
+	return *this;
+}
+
+varlong::operator long long()
+{
+	return _val;
+}
+
 
 //String class
 
+String::String(unsigned int len):
+	_len(len), _allocator(new char[_len + 1])
+{
+	_allocator[_len] = 0; //set 0 byte to mark end of line
+	memset(_allocator, ' ', _len); //fill with spaces
+}
+
 String::String(const char* const buff):
-	_allocator(new char[_len+1])
+	_len(strlen(buff)), _allocator(new char[_len+1])
 {
 	init(buff);
 }
@@ -49,11 +183,9 @@ std::string String::string() const
 
 void String::init(const char* const buff)
 {
-	Byte size = strlen(buff);
-	size = size > 64 ? 64 : size;
-	_allocator[_len] = '0x0'; //set 0 byte to mark end of line
+	_allocator[_len] = 0; //set 0 byte to mark end of line
 	memset(_allocator, ' ', _len); //fill with spaces 0x20
-	memcpy(_allocator, buff, size);
+	memcpy(_allocator, buff, _len);
 }
 
 void String::setString(const char* const buff)
@@ -100,6 +232,7 @@ ByteArray& ByteArray::operator=(const ByteArray& arr)
 	{
 		memcpy(_allocator, arr.data(), _len);
 	}
+	return *this;
 }
 
 ByteArray::~ByteArray()
@@ -124,7 +257,7 @@ inline const char* ByteArray::data() const
 
 void ByteArray::clear()
 {
-	memset(_allocator, '0x0', _len);
+	memset(_allocator, 0, _len);
 }
 
 void ByteArray::setData(const char* const buff, unsigned short len, unsigned short offset)
