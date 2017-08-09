@@ -75,7 +75,19 @@ bool TcpClientSocket::init(WORD WSAVersion)
 	return true;
 }
 
-inline bool TcpClientSocket::isConnected()
+unsigned int TcpClientSocket::read(char* buff, unsigned int len) const
+{
+	int bytesReaded = recv(_socket, buff, len, 0);
+	return bytesReaded > 0 ? bytesReaded : 0;
+}
+
+unsigned int TcpClientSocket::write(char* buff, unsigned int len) const
+{
+	int bytesWrited = send(_socket, buff, len, 0);
+	return bytesWrited > 0 ? bytesWrited: 0;
+}
+
+bool TcpClientSocket::isConnected()
 {
 	return _isConnected;
 }

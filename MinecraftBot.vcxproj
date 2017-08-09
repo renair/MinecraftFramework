@@ -143,7 +143,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Buffer.h" />
-    <ClInclude Include="Packets.h" />
+    <ClInclude Include="BufferedReaderWriter.h" />
+    <ClInclude Include="Packet.h" />
     <ClInclude Include="ServerConnection.h" />
     <ClInclude Include="TcpClientSocket.h" />
     <ClInclude Include="Types.h" />
@@ -151,6 +152,7 @@
   <ItemGroup>
     <ClCompile Include="Buffer.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Packet.cpp" />
     <ClCompile Include="TcpClientSocket.cpp" />
     <ClCompile Include="Types.cpp" />
   </ItemGroup>
