@@ -24,6 +24,7 @@ unsigned short varint::encode(char* destination)
 		++i;
 	}
 	while (copy != 0);
+	_bytes = i;
 	return i;
 }
 
@@ -40,6 +41,7 @@ unsigned short varint::decode(char* source)
 		//TODO exception if read value stored in more than 5 bytes
 	}
 	while((byte & 0b10000000) != 0);
+	_bytes = i;
 	return i;
 }
 
@@ -88,6 +90,7 @@ unsigned short varlong::encode(char* destination)
 		*(destination + i) = byte;
 		++i;
 	} while (copy != 0);
+	_bytes = i;
 	return i;
 }
 
@@ -103,6 +106,7 @@ unsigned short varlong::decode(char* source)
 		++i;
 		//TODO exception if read value stored in more than 10 bytes
 	} while ((byte & 0b10000000) != 0);
+	_bytes = i;
 	return i;
 }
 

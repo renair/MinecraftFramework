@@ -16,13 +16,14 @@ namespace ServiceTypes
 		Buffer(const Buffer&);
 		~Buffer();
 		Buffer& operator=(const Buffer&);
-		void put(void*, unsigned int len);
+		void append(void*, unsigned int len);
 		inline unsigned int& offset() const;
+		void writeData(char* src, unsigned int size);
 		unsigned int readData(char* dest, unsigned int size) const;
-		inline char* data() const;
-		inline unsigned int size() const;
+		char* data() const;
+		unsigned int size() const;
 		void printBytes(unsigned char col = 6, char separator = ' ') const;
-		inline void clear();
+		void clear();
 	};
 }
 

@@ -23,7 +23,7 @@ Packet* Packet::getServerPacket(long packetID)
 		init();
 	}
 	_citerator = _serverPacketsMap.find(packetID);
-	return _citerator == _serverPacketsMap.end() ? NULL : _citerator->second;
+	return _citerator == _serverPacketsMap.end() ? NULL : _citerator->second->clone();
 }
 
 Packet* Packet::getClientPacket(long packetID)
@@ -33,5 +33,5 @@ Packet* Packet::getClientPacket(long packetID)
 		init();
 	}
 	_citerator = _clientPacketsMap.find(packetID);
-	return _citerator == _clientPacketsMap.end() ? NULL : _citerator->second;
+	return _citerator == _clientPacketsMap.end() ? NULL : _citerator->second->clone();
 }

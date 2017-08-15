@@ -25,6 +25,7 @@ namespace MinecraftTypes
 	struct varint
 	{
 		long _val;
+		unsigned char _bytes;
 
 		varint(long);
 		unsigned short decode(char*);
@@ -38,6 +39,7 @@ namespace MinecraftTypes
 	struct varlong
 	{
 		long long _val;
+		unsigned char _bytes;
 
 		varlong(long long);
 		unsigned short decode(char*);

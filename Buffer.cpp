@@ -47,7 +47,7 @@ void Buffer::allocateMore(unsigned int bytesToAlloc)
 	_maxSize += bytesToAlloc;
 }
 
-void Buffer::put(void* src, unsigned int len)
+void Buffer::append(void* src, unsigned int len)
 {
 	if(size()+len > _maxSize)
 	{
@@ -62,6 +62,16 @@ inline unsigned int& Buffer::offset() const
 	return _offset;
 }
 
+void Buffer::writeData(char* src, unsigned int len)
+{
+	if(offset()+len > _maxSize)
+	{
+		allocateMore(128);
+	}
+	memcpy(_allocator+offset(), src, len);
+	offset() += len;
+}
+
 unsigned int Buffer::readData(char* dest, unsigned int len) const
 {
 	len = offset() + len > size() ? size() - offset() : len;
@@ -70,12 +80,12 @@ unsigned int Buffer::readData(char* dest, unsigned int len) const
 	return len;
 }
 
-inline char* Buffer::data() const
+char* Buffer::data() const
 {
 	return _allocator;
 }
 
-inline unsigned int Buffer::size() const
+unsigned int Buffer::size() const
 {
 	return _size;
 }
@@ -93,7 +103,7 @@ void Buffer::printBytes(unsigned char col, char separator) const
 	}
 }
 
-inline void Buffer::clear()
+void Buffer::clear()
 {
 	_size = 0;
 }
