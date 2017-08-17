@@ -144,8 +144,8 @@
   <ItemGroup>
     <ClInclude Include="Buffer.h" />
     <ClInclude Include="BufferedReaderWriter.h" />
+    <ClInclude Include="MinecraftBot.h" />
     <ClInclude Include="Packet.h" />
-    <ClInclude Include="ServerConnection.h" />
     <ClInclude Include="TcpClientSocket.h" />
     <ClInclude Include="Types.h" />
   </ItemGroup>
@@ -153,13 +153,13 @@
     <ClCompile Include="Buffer.cpp" />
     <ClCompile Include="BufferedReaderWriter.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MinecraftBot.cpp" />
     <ClCompile Include="Packet.cpp" />
     <ClCompile Include="TcpClientSocket.cpp" />
     <ClCompile Include="Types.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
-    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

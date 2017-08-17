@@ -87,6 +87,15 @@ unsigned int TcpClientSocket::write(char* buff, unsigned int len) const
 	return bytesWrited > 0 ? bytesWrited: 0;
 }
 
+void TcpClientSocket::close()
+{
+	if(isConnected())
+	{
+		::closesocket(_socket);
+		_isConnected = false;
+	}
+}
+
 bool TcpClientSocket::isConnected()
 {
 	return _isConnected;
