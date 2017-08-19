@@ -35,3 +35,8 @@ Packet* Packet::getClientPacket(long packetID)
 	_citerator = _clientPacketsMap.find(packetID);
 	return _citerator == _clientPacketsMap.end() ? NULL : _citerator->second->clone();
 }
+
+void Packet::process()
+{
+	// overwrite this method to add your own code in handle()
+}

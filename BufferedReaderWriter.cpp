@@ -31,7 +31,7 @@ void BufferedReaderWriter::writeVarInt(MinecraftTypes::VarInt val, unsigned int 
 
 ServiceTypes::Buffer& BufferedReaderWriter::readData()
 {
-	//TODO reimplement method to be ready if socket can't read whole VarInt at one oparation
+	//TODO reimplement method to be ready if socket can't read whole VarInt at once
 	_buffer.clear();
 	char* buff = new char[_middleBufferSize];
 	unsigned int readed = _socket.read(buff, _middleBufferSize);

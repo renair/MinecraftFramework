@@ -62,7 +62,7 @@ inline unsigned int& Buffer::offset() const
 	return _offset;
 }
 
-void Buffer::writeData(char* src, unsigned int len)
+void Buffer::writeData(void* src, unsigned int len)
 {
 	if(offset()+len > _maxSize)
 	{
@@ -72,7 +72,7 @@ void Buffer::writeData(char* src, unsigned int len)
 	offset() += len;
 }
 
-unsigned int Buffer::readData(char* dest, unsigned int len) const
+unsigned int Buffer::readData(void* dest, unsigned int len) const
 {
 	len = offset() + len > size() ? size() - offset() : len;
 	memcpy(dest, data()+offset(), len);

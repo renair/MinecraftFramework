@@ -9,6 +9,7 @@ namespace MinecraftTypes
 {
 	struct varint;
 	struct varlong;
+	union position;
 
 	typedef bool Boolean;
 	typedef unsigned char Byte;
@@ -21,17 +22,19 @@ namespace MinecraftTypes
 	typedef double Double;
 	typedef struct varint VarInt;
 	typedef struct varlong VarLong;
+	typedef union position Position;
 
 	struct varint
 	{
 		long _val;
-		unsigned char _bytes;
+		mutable unsigned char _bytes;
 
 		varint(long);
 		unsigned short decode(char*);
-		unsigned short encode(char*);
+		unsigned short encode(char*) const;
 		varint& read(const ServiceTypes::Buffer&);
-		varint& write(ServiceTypes::Buffer&);
+		varint & write(ServiceTypes::Buffer & buff);
+		const varint & write(ServiceTypes::Buffer & buff) const;
 		const varint operator=(long);
 		operator long();
 	};
@@ -39,22 +42,35 @@ namespace MinecraftTypes
 	struct varlong
 	{
 		long long _val;
-		unsigned char _bytes;
+		mutable unsigned char _bytes;
 
 		varlong(long long);
 		unsigned short decode(char*);
-		unsigned short encode(char*);
+		unsigned short encode(char*) const;
 		varlong& read(const ServiceTypes::Buffer&);
 		varlong& write(ServiceTypes::Buffer&);
+		const varlong& write(ServiceTypes::Buffer&) const;
 		const varlong operator=(long long);
 		operator long long();
+	};
+
+	union position
+	{
+		long _rawValue;
+		struct Coordinates
+		{
+			long _x : 26;
+			long _y : 12;
+			long _z : 26;
+		} _coords;
 	};
 
 	class String
 	{
 	private:
-		char* _allocator;
+		unsigned int _bytes;
 		unsigned int _len;
+		char* _allocator;
 		void init(const char* const);
 	public:
 		String(unsigned int len);
@@ -66,7 +82,8 @@ namespace MinecraftTypes
 
 		char* cstring() const;
 		std::string string() const;
-		inline Byte length() const;
+		unsigned int length() const;
+		unsigned int bytes() const;
 		void setString(const char* const);
 		void setString(const std::string&);
 	};

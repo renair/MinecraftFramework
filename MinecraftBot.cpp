@@ -1,17 +1,20 @@
 #include "MinecraftBot.h"
 #include "Packet.h"
+#include "PacketsList.h"
 #include <iostream>
+
+using namespace std;
 
 MinecraftBot::MinecraftBot(char* addr, char* port):
 	_socket(addr, port), _bufferedIO(_socket)
 {
 	if(_socket.isConnected())
 	{
-		std::cout << "Connection succes" << std::endl;
+		cout << "Connection succes" << endl;
 	}
 	else
 	{
-		std::cout << "Can't connect to host " << addr << ':' << port << std::endl;
+		cout << "Can't connect to host " << addr << ':' << port << endl;
 		//throw MinecraftBotExceptions::NoHostConnection;
 	}
 }
@@ -30,7 +33,14 @@ long MinecraftBot::readPacketID()
 
 void MinecraftBot::handshake()
 {
-	//TODO implement mathod
+	//TODO implement method
+	long protoVer = 5;
+	char* host = "platinium.ddns.net";
+	MinecraftTypes::UShort port = 25565; //default port
+	long nextState = 1; // get server status
+	// 1 - status
+	// 2 - login
+	Packets::ClientPackets::HandshakePacket handshake(protoVer, host, port, nextState);
 }
 
 void MinecraftBot::login()
@@ -44,6 +54,7 @@ int MinecraftBot::startHandling()
 	login();
 	while(true)
 	{
+		_bufferedIO.readData();
 		long packetID = readPacketID();
 		std::cout << "Received packet #" << packetID;
 		Packets::Packet* packet = Packets::Packet::getServerPacket(packetID);
