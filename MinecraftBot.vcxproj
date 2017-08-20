@@ -144,6 +144,7 @@
   <ItemGroup>
     <ClInclude Include="Buffer.h" />
     <ClInclude Include="BufferedReaderWriter.h" />
+    <ClInclude Include="Functions.h" />
     <ClInclude Include="Handshake.h" />
     <ClInclude Include="LoginStartPacket.h" />
     <ClInclude Include="MinecraftBot.h" />

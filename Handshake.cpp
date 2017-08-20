@@ -1,4 +1,5 @@
 #include "Handshake.h"
+#include "Functions.h"
 
 using namespace Packets;
 using namespace ClientPackets;
@@ -17,7 +18,7 @@ HandshakePacket::HandshakePacket(const HandshakePacket& pack):
 HandshakePacket::HandshakePacket(long protoVersion, const char* host, UShort port, long nextState):
 	_protocolVersion(protoVersion),
 	_serverAddress(host),
-	_serverPort(port),
+	_serverPort(changeIndianess<UShort>(port)),
 	_nextState(nextState)
 {}
 
@@ -36,7 +37,7 @@ Buffer HandshakePacket::dump()
 	Buffer buff;
 	_ID.write(buff);
 	_protocolVersion.write(buff);
-	buff.writeData(_serverAddress.cstring(), _serverAddress.bytes());
+	buff.writeString(_serverAddress);
 	buff.writeData(&_serverPort, sizeof(_serverPort));
 	_nextState.write(buff);
 	return buff;
@@ -46,7 +47,6 @@ void HandshakePacket::handle(NetworkEngine::BufferedReaderWriter&)
 {
 	process();
 }
-
 
 long HandshakePacket::getID()
 {

@@ -33,8 +33,8 @@ namespace MinecraftTypes
 		unsigned short decode(char*);
 		unsigned short encode(char*) const;
 		varint& read(const ServiceTypes::Buffer&);
-		varint & write(ServiceTypes::Buffer & buff);
-		const varint & write(ServiceTypes::Buffer & buff) const;
+		varint & write(ServiceTypes::Buffer& buff);
+		const varint & write(ServiceTypes::Buffer& buff) const;
 		const varint operator=(long);
 		operator long();
 	};
@@ -68,7 +68,6 @@ namespace MinecraftTypes
 	class String
 	{
 	private:
-		unsigned int _bytes;
 		unsigned int _len;
 		char* _allocator;
 		void init(const char* const);
@@ -83,7 +82,6 @@ namespace MinecraftTypes
 		char* cstring() const;
 		std::string string() const;
 		unsigned int length() const;
-		unsigned int bytes() const;
 		void setString(const char* const);
 		void setString(const std::string&);
 	};

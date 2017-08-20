@@ -1,6 +1,7 @@
 #include<cstring>
 #include<cstdio>
 #include"Buffer.h"
+#include"Types.h"
 
 using namespace ServiceTypes;
 
@@ -53,7 +54,10 @@ void Buffer::append(void* src, unsigned int len)
 	{
 		allocateMore(len*2);
 	}
-	memcpy(data()+size(), src, len);
+	if(src != NULL)
+	{
+		memcpy(data() + size(), src, len);
+	}
 	_size += len;
 }
 
@@ -82,6 +86,22 @@ unsigned int Buffer::readData(void* dest, unsigned int len) const
 	memcpy(dest, data()+offset(), len);
 	offset() += len;
 	return len;
+}
+
+void Buffer::writeString(const MinecraftTypes::String& str)
+{
+	MinecraftTypes::VarInt len(str.length());
+	len.write(*this);
+	writeData(str.cstring(), str.length());
+}
+
+MinecraftTypes::String Buffer::readString() const
+{
+	MinecraftTypes::VarInt len(0);
+	len.read(*this);
+	MinecraftTypes::String str(len._val);
+	memcpy(str.cstring(), data()+offset(), len._val);
+	return str;
 }
 
 char* Buffer::data() const

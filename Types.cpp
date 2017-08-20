@@ -54,12 +54,20 @@ varint& varint::read(const ServiceTypes::Buffer& buff)
 varint& varint::write(ServiceTypes::Buffer& buff)
 {
 	buff.offset() += encode(buff.data() + buff.offset());
+	if (buff.offset() > buff.size())
+	{
+		buff.append(NULL, buff.offset() - buff.size());
+	}
 	return *this;
 }
 
 const varint& varint::write(ServiceTypes::Buffer& buff) const
 {
 	buff.offset() += encode(buff.data() + buff.offset());
+	if(buff.offset() > buff.size())
+	{
+		buff.append(NULL, buff.offset()-buff.size());
+	}
 	return *this;
 }
 
@@ -125,12 +133,20 @@ varlong& varlong::read(const ServiceTypes::Buffer& buff)
 varlong& varlong::write(ServiceTypes::Buffer& buff)
 {
 	buff.offset() += encode(buff.data() + buff.offset());
+	if (buff.offset() > buff.size())
+	{
+		buff.append(NULL, buff.offset() - buff.size());
+	}
 	return *this;
 }
 
 const varlong& varlong::write(ServiceTypes::Buffer& buff) const
 {
 	buff.offset() += encode(buff.data() + buff.offset());
+	if (buff.offset() > buff.size())
+	{
+		buff.append(NULL, buff.offset() - buff.size());
+	}
 	return *this;
 }
 
@@ -149,20 +165,20 @@ varlong::operator long long()
 //String class
 
 String::String(unsigned int len):
-	_len(len), _bytes(len*4 + 1), _allocator(new char[_bytes + 1])
+	_len(len), _allocator(new char[_len + 1])
 {
-	_allocator[_bytes-1] = 0; //set 0 byte to mark end of line
-	memset(_allocator, ' ', _len); //fill with spaces
+	_allocator[_len] = 0; //set 0 byte to mark end of line
+	memset(_allocator, 0x0, _len); //fill with zeroes
 }
 
 String::String(const char* const buff):
-	_bytes(strlen(buff)), _len(_bytes/4), _allocator(new char[_bytes+1])
+	_len(strlen(buff)), _allocator(new char[_len+1])
 {
 	init(buff);
 }
 
 String::String(const std::string& str):
-	_bytes(str.length()), _len(_bytes/4), _allocator(new char[_bytes+1])
+	_len(str.length()), _allocator(new char[_len+1])
 {
 	init(str.c_str());
 }
@@ -177,7 +193,8 @@ String& String::operator=(const String& str)
 {
 	if(this != &str)
 	{
-		memcpy(str.cstring(), _allocator, _len);
+		unsigned int len = str._len > _len ? _len : str._len;
+		memcpy(_allocator, str.cstring(), len);
 	}
 	return *this;
 }
@@ -199,8 +216,8 @@ std::string String::string() const
 
 void String::init(const char* const buff)
 {
-	_allocator[_bytes-1] = 0; //set 0 byte to mark end of line
-	memset(_allocator, ' ', _bytes); //fill with spaces 0x20
+	_allocator[_len] = 0; //set 0 byte to mark end of line
+	memset(_allocator, 0x0, _len); //fill with spaces 0x20
 	memcpy(_allocator, buff, strlen(buff));
 }
 
@@ -218,12 +235,6 @@ unsigned int String::length() const
 {
 	return _len;
 }
-
-unsigned int String::bytes() const
-{
-	return _bytes;
-}
-
 
 //ByteArray class
 

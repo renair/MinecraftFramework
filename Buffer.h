@@ -1,6 +1,12 @@
 #ifndef _BUFFER
 #define _BUFFER
 
+namespace MinecraftTypes
+{
+	class String;
+	struct varint;
+}
+
 namespace ServiceTypes
 {
 	class Buffer
@@ -20,6 +26,8 @@ namespace ServiceTypes
 		inline unsigned int& offset() const;
 		void writeData(void * src, unsigned int len);
 		unsigned int readData(void* dest, unsigned int size) const;
+		void writeString(const MinecraftTypes::String&);
+		MinecraftTypes::String readString() const;
 		char* data() const;
 		unsigned int size() const;
 		void printBytes(unsigned char col = 6, char separator = ' ') const;

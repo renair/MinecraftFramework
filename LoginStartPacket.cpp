@@ -8,10 +8,8 @@ using namespace NetworkEngine;
 const MinecraftTypes::VarInt LoginStartPacket::_ID(0x0);
 
 LoginStartPacket::LoginStartPacket(const char* name):
-	_name(16)
-{
-	_name.setString(name);
-}
+	_name(name)
+{}
 
 LoginStartPacket::LoginStartPacket(const LoginStartPacket& pack):
 	_name(pack._name)
@@ -33,7 +31,7 @@ Buffer LoginStartPacket::dump()
 {
 	Buffer buff;
 	_ID.write(buff);
-	buff.writeData(_name.cstring(), _name.bytes());
+	buff.writeString(_name);
 	return buff;
 }
 
