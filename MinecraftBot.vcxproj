@@ -145,6 +145,7 @@
     <ClInclude Include="Buffer.h" />
     <ClInclude Include="BufferedReaderWriter.h" />
     <ClInclude Include="Handshake.h" />
+    <ClInclude Include="LoginStartPacket.h" />
     <ClInclude Include="MinecraftBot.h" />
     <ClInclude Include="Packet.h" />
     <ClInclude Include="PacketsList.h" />
@@ -155,6 +156,7 @@
     <ClCompile Include="Buffer.cpp" />
     <ClCompile Include="BufferedReaderWriter.cpp" />
     <ClCompile Include="Handshake.cpp" />
+    <ClCompile Include="LoginStartPacket.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MinecraftBot.cpp" />
     <ClCompile Include="Packet.cpp" />

@@ -54,7 +54,7 @@ ServiceTypes::Buffer& BufferedReaderWriter::readData()
 
 void BufferedReaderWriter::sendData(ServiceTypes::Buffer& buff)
 {
-	MinecraftTypes::VarInt packetSize = buff.size();
+	MinecraftTypes::VarInt packetSize(buff.size());
 	char internalBuffer[5];
 	packetSize.encode(internalBuffer);
 	_socket.write(internalBuffer, packetSize._bytes);

@@ -4,6 +4,8 @@
 #include <iostream>
 
 using namespace std;
+using namespace Packets;
+using namespace ClientPackets;
 
 MinecraftBot::MinecraftBot(char* addr, char* port):
 	_socket(addr, port), _bufferedIO(_socket)
@@ -37,15 +39,18 @@ void MinecraftBot::handshake()
 	long protoVer = 5;
 	char* host = "platinium.ddns.net";
 	MinecraftTypes::UShort port = 25565; //default port
-	long nextState = 1; // get server status
+	long nextState = 2; // get server status
 	// 1 - status
 	// 2 - login
-	Packets::ClientPackets::HandshakePacket handshake(protoVer, host, port, nextState);
+	HandshakePacket handshake(protoVer, host, port, nextState);
+	_bufferedIO.sendData(handshake.dump());
 }
 
 void MinecraftBot::login()
 {
 	handshake();
+	LoginStartPacket pack("CPP_Bot");
+	_bufferedIO.sendData(pack.dump());
 	//TODO implement method
 }
 

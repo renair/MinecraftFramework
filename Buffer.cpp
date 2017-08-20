@@ -70,6 +70,10 @@ void Buffer::writeData(void* src, unsigned int len)
 	}
 	memcpy(_allocator+offset(), src, len);
 	offset() += len;
+	if(offset() > size())
+	{
+		_size = offset();
+	}
 }
 
 unsigned int Buffer::readData(void* dest, unsigned int len) const

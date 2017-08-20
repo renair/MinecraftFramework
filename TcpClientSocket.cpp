@@ -1,4 +1,5 @@
 #include "TcpClientSocket.h"
+#include "Buffer.h"
 #include <iostream>
 #include <WS2tcpip.h>
 
@@ -84,6 +85,14 @@ unsigned int TcpClientSocket::read(char* buff, unsigned int len) const
 unsigned int TcpClientSocket::write(char* buff, unsigned int len) const
 {
 	int bytesWrited = send(_socket, buff, len, 0);
+	if(bytesWrited < 0)
+	{
+		std::cout << "Error in TcpClientSocket::write()" << std::endl;
+		ServiceTypes::Buffer b;
+		b.append(buff, len);
+		b.printBytes();
+		std::cout << std::endl;
+	}
 	return bytesWrited > 0 ? bytesWrited: 0;
 }
 
