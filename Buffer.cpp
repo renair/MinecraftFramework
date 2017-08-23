@@ -101,6 +101,7 @@ MinecraftTypes::String Buffer::readString() const
 	len.read(*this);
 	MinecraftTypes::String str(len._val);
 	memcpy(str.cstring(), data()+offset(), len._val);
+	offset() += len._val;
 	return str;
 }
 

@@ -184,7 +184,8 @@ String::String(const std::string& str):
 }
 
 String::String(const String& str):
-	_allocator(new char[_len+1])
+	_len(str._len),
+	_allocator(new char[str._len+1])
 {
 	init(str.cstring());
 }
@@ -193,8 +194,9 @@ String& String::operator=(const String& str)
 {
 	if(this != &str)
 	{
-		unsigned int len = str._len > _len ? _len : str._len;
-		memcpy(_allocator, str.cstring(), len);
+		delete[] _allocator;
+		_allocator[str._len];
+		memcpy(_allocator, str.cstring(), str._len);
 	}
 	return *this;
 }

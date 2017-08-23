@@ -10,10 +10,10 @@ namespace Packets
 	class Packet
 	{
 	private:
-		static std::unordered_map<long, Packet* const> _clientPacketsMap;
-		static std::unordered_map<long, Packet* const> _serverPacketsMap;
-		static std::unordered_map<long, Packet* const>::const_iterator _citerator;
-		static std::unordered_map<long, Packet* const>::iterator _iterator;
+		static std::unordered_map<long, Packet*> _clientPacketsMap;
+		static std::unordered_map<long, Packet*> _serverPacketsMap;
+		static std::unordered_map<long, Packet*>::const_iterator _citerator;
+		static std::unordered_map<long, Packet*>::iterator _iterator;
 		static bool _isInited;
 		static void init();
 		virtual Packet* clone() = 0;

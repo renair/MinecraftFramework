@@ -1,78 +1,88 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Файлы исходного кода">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    <Filter Include="MinecraftFramework">
+      <UniqueIdentifier>{c45ef125-c52c-494b-a5e8-be3ae24cd418}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Заголовочные файлы">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    <Filter Include="MinecraftFramework\Networking">
+      <UniqueIdentifier>{37d00f3c-73c5-4c65-b994-5a71c8b7c7f3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Файлы ресурсов">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    <Filter Include="MinecraftFramework\Packets">
+      <UniqueIdentifier>{b3992b77-87e7-4f37-bb9e-d1a7a125f923}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MinecraftFramework\Packets\ClientPackets">
+      <UniqueIdentifier>{491c6486-68c8-4c32-bf38-1cf459974b67}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MinecraftFramework\Packets\ServerPackets">
+      <UniqueIdentifier>{81afe0c9-7f10-4af1-802d-92cc9c22985b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MinecraftFramework\DataTypes">
+      <UniqueIdentifier>{477643be-1bc1-4257-9ee9-4bfbdb0adb6a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Types.h">
-      <Filter>Заголовочные файлы</Filter>
-    </ClInclude>
-    <ClInclude Include="Buffer.h">
-      <Filter>Заголовочные файлы</Filter>
-    </ClInclude>
-    <ClInclude Include="TcpClientSocket.h">
-      <Filter>Заголовочные файлы</Filter>
-    </ClInclude>
-    <ClInclude Include="BufferedReaderWriter.h">
-      <Filter>Заголовочные файлы</Filter>
-    </ClInclude>
     <ClInclude Include="Packet.h">
-      <Filter>Заголовочные файлы</Filter>
-    </ClInclude>
-    <ClInclude Include="MinecraftBot.h">
-      <Filter>Заголовочные файлы</Filter>
+      <Filter>MinecraftFramework\Packets</Filter>
     </ClInclude>
     <ClInclude Include="Handshake.h">
-      <Filter>Заголовочные файлы</Filter>
-    </ClInclude>
-    <ClInclude Include="PacketsList.h">
-      <Filter>Заголовочные файлы</Filter>
+      <Filter>MinecraftFramework\Packets\ClientPackets</Filter>
     </ClInclude>
     <ClInclude Include="LoginStartPacket.h">
-      <Filter>Заголовочные файлы</Filter>
+      <Filter>MinecraftFramework\Packets\ClientPackets</Filter>
     </ClInclude>
-    <ClInclude Include="Functions.h">
-      <Filter>Заголовочные файлы</Filter>
+    <ClInclude Include="BufferedReaderWriter.h">
+      <Filter>MinecraftFramework\Networking</Filter>
+    </ClInclude>
+    <ClInclude Include="TcpClientSocket.h">
+      <Filter>MinecraftFramework\Networking</Filter>
+    </ClInclude>
+    <ClInclude Include="Buffer.h">
+      <Filter>MinecraftFramework\DataTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="Types.h">
+      <Filter>MinecraftFramework\DataTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="ChangeIndianess.h">
+      <Filter>MinecraftFramework\Networking</Filter>
+    </ClInclude>
+    <ClInclude Include="PacketsList.h">
+      <Filter>MinecraftFramework\Packets</Filter>
+    </ClInclude>
+    <ClInclude Include="MinecraftBot.h">
+      <Filter>MinecraftFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="LoginSuccessPacket.h">
+      <Filter>MinecraftFramework\Packets\ServerPackets</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Types.cpp">
-      <Filter>Файлы исходного кода</Filter>
-    </ClCompile>
-    <ClCompile Include="Buffer.cpp">
-      <Filter>Файлы исходного кода</Filter>
-    </ClCompile>
-    <ClCompile Include="main.cpp">
-      <Filter>Файлы исходного кода</Filter>
-    </ClCompile>
-    <ClCompile Include="TcpClientSocket.cpp">
-      <Filter>Файлы исходного кода</Filter>
-    </ClCompile>
     <ClCompile Include="Packet.cpp">
-      <Filter>Файлы исходного кода</Filter>
-    </ClCompile>
-    <ClCompile Include="BufferedReaderWriter.cpp">
-      <Filter>Файлы исходного кода</Filter>
-    </ClCompile>
-    <ClCompile Include="MinecraftBot.cpp">
-      <Filter>Файлы исходного кода</Filter>
-    </ClCompile>
-    <ClCompile Include="Handshake.cpp">
-      <Filter>Файлы исходного кода</Filter>
+      <Filter>MinecraftFramework\Packets</Filter>
     </ClCompile>
     <ClCompile Include="LoginStartPacket.cpp">
-      <Filter>Файлы исходного кода</Filter>
+      <Filter>MinecraftFramework\Packets\ClientPackets</Filter>
+    </ClCompile>
+    <ClCompile Include="Handshake.cpp">
+      <Filter>MinecraftFramework\Packets\ClientPackets</Filter>
+    </ClCompile>
+    <ClCompile Include="BufferedReaderWriter.cpp">
+      <Filter>MinecraftFramework\Networking</Filter>
+    </ClCompile>
+    <ClCompile Include="TcpClientSocket.cpp">
+      <Filter>MinecraftFramework\Networking</Filter>
+    </ClCompile>
+    <ClCompile Include="Buffer.cpp">
+      <Filter>MinecraftFramework\DataTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="Types.cpp">
+      <Filter>MinecraftFramework\DataTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="MinecraftBot.cpp">
+      <Filter>MinecraftFramework</Filter>
+    </ClCompile>
+    <ClCompile Include="LoginSuccessPacket.cpp">
+      <Filter>MinecraftFramework\Packets\ServerPackets</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

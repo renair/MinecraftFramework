@@ -29,7 +29,7 @@ MinecraftBot::~MinecraftBot()
 long MinecraftBot::readPacketID()
 {
 	MinecraftTypes::VarInt res(0);
-	res.decode(_bufferedIO.buffer().data());
+	res.read(_bufferedIO.buffer());
 	return res._val;
 }
 
@@ -51,6 +51,9 @@ void MinecraftBot::login()
 	handshake();
 	LoginStartPacket pack("CPP_Bot");
 	_bufferedIO.sendData(pack.dump());
+	/*ServiceTypes::Buffer loginSuccess = _bufferedIO.readData();
+	Packet* loginSuccessPacket = Packet::getServerPacket(0x02);
+	loginSuccessPacket->load(loginSuccess);*/
 	//TODO implement method
 }
 
@@ -59,12 +62,22 @@ int MinecraftBot::startHandling()
 	login();
 	while(true)
 	{
+		// TODO some reading bug here!
 		_bufferedIO.readData();
+		// or here o_O
 		long packetID = readPacketID();
 		std::cout << "Received packet #" << packetID;
 		Packets::Packet* packet = Packets::Packet::getServerPacket(packetID);
-		packet->handle(_bufferedIO);
-		std::cout << "\thandled" << std::endl;
-		delete packet;
+		if(packet != NULL)
+		{
+			packet->load(_bufferedIO.buffer());
+			packet->handle(_bufferedIO);
+			std::cout << "\thandled" << std::endl;
+			delete packet; // delete if only packet was created
+		}
+		else
+		{
+			std::cout << "\tnot found" << std::endl;
+		}
 	}
 }

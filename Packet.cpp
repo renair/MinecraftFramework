@@ -1,18 +1,19 @@
 #include "Packet.h"
+#include "PacketsList.h"
 
 using namespace Packets;
 
 bool Packet::_isInited = false;
-std::unordered_map<long, Packet* const> Packet::_clientPacketsMap;
-std::unordered_map<long, Packet* const> Packet::_serverPacketsMap;
-std::unordered_map<long, Packet* const>::const_iterator Packet::_citerator;
-std::unordered_map<long, Packet* const>::iterator Packet::_iterator;
+std::unordered_map<long, Packet*> Packet::_clientPacketsMap;
+std::unordered_map<long, Packet*> Packet::_serverPacketsMap;
+std::unordered_map<long, Packet*>::const_iterator Packet::_citerator;
+std::unordered_map<long, Packet*>::iterator Packet::_iterator;
 
 void Packet::init()
 {
 	//put here new packets both fore server and client.
 	//_clientPacketsMap[0] = new ClientPackets::Handshake();
-
+	_serverPacketsMap[0x02] = new ServerPackets::LoginSuccessPacket();
 	_isInited = true;
 }
 
