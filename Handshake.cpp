@@ -1,5 +1,5 @@
 #include "Handshake.h"
-#include "Functions.h"
+#include "ChangeIndianess.h"
 
 using namespace Packets;
 using namespace ClientPackets;
