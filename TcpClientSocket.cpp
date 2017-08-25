@@ -30,6 +30,7 @@ TcpClientSocket::TcpClientSocket(const char* host, const char* port)
 TcpClientSocket::~TcpClientSocket()
 {
 	freeaddrinfo(_addrinfo);
+	close();
 }
 
 bool TcpClientSocket::connect(const char* host, const char* port)
@@ -46,7 +47,7 @@ bool TcpClientSocket::connect(const char* host, const char* port)
 	}
 	if(::connect(_socket, _addrinfo->ai_addr, _addrinfo->ai_addrlen)) //return 0 on success
 	{
-		std::cout << "Can't connect to host." << std::endl;
+		std::cout << "Can't connect to " << host << ':' << port << std::endl;
 		return false;
 	}
 	_isConnected = true;
@@ -55,16 +56,14 @@ bool TcpClientSocket::connect(const char* host, const char* port)
 
 bool TcpClientSocket::init(WORD WSAVersion)
 {
-	//TODO throw error CantStartWSA
 	if (WSAStartup(WSAVersion, &_wsadata)) //return 0 on success
 	{
 		std::cout << "WSAStartup error!" << std::endl;
 		return false;
 	}
-	//TODO throw error "NoSupportableVersion"
 	if (_wsadata.wVersion != 2 || _wsadata.wHighVersion < 2)
 	{
-		std::cout << "Not supported version." << std::endl;
+		std::cout << "Not supported WSA version." << std::endl;
 		return false;
 	}
 	_socket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
@@ -78,25 +77,38 @@ bool TcpClientSocket::init(WORD WSAVersion)
 
 unsigned int TcpClientSocket::read(char* buff, unsigned int len) const
 {
+	if(!isConnected())
+	{
+		std::cout << "Socket is not conencted. Can not read." << std::endl;
+		return -1;
+	}
 	int bytesReaded = recv(_socket, buff, len, 0);
-	return bytesReaded > 0 ? bytesReaded : 0;
+	if(bytesReaded < 0)
+	{
+		std::cout << "Can not read from socket." << std::endl;
+		_isConnected = false;
+		return bytesReaded;
+	}
+	return bytesReaded;
 }
 
 unsigned int TcpClientSocket::write(char* buff, unsigned int len) const
 {
+	if(!isConnected())
+	{
+		std::cout << "Socket is not conencted. Can not write." << std::endl;
+		return -1;
+	}
 	int bytesWrited = send(_socket, buff, len, 0);
 	if(bytesWrited < 0)
 	{
-		std::cout << "Error in TcpClientSocket::write()" << std::endl;
-		ServiceTypes::Buffer b;
-		b.append(buff, len);
-		b.printBytes();
-		std::cout << std::endl;
+		std::cout << "Can not write to socket." << std::endl;
+		_isConnected = false;
 	}
-	return bytesWrited > 0 ? bytesWrited: 0;
+	return bytesWrited;
 }
 
-void TcpClientSocket::close()
+void TcpClientSocket::close() const
 {
 	if(isConnected())
 	{
@@ -105,7 +117,7 @@ void TcpClientSocket::close()
 	}
 }
 
-bool TcpClientSocket::isConnected()
+bool TcpClientSocket::isConnected() const
 {
 	return _isConnected;
 }

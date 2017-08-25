@@ -9,7 +9,7 @@ namespace NetworkEngine
 	class TcpClientSocket
 	{
 	private:
-		bool _isConnected;
+		mutable bool _isConnected;
 		SOCKET _socket;
 		struct addrinfo* _addrinfo;
 		WSADATA _wsadata;
@@ -24,8 +24,8 @@ namespace NetworkEngine
 		bool connect(const char* host, const char* port);
 		unsigned int read(char* buff, unsigned int len) const;
 		unsigned int write(char* buff, unsigned int len) const;
-		void close();
-		bool isConnected();
+		void close() const;
+		bool isConnected() const;
 	};
 }
 #endif
