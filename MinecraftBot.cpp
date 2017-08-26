@@ -7,7 +7,7 @@ using namespace std;
 using namespace Packets;
 using namespace ClientPackets;
 
-MinecraftBot::MinecraftBot(char* addr, char* port):
+MinecraftBot::MinecraftBot(const char* addr, const char* port):
 	_socket(addr, port), _bufferedIO(_socket)
 {
 	if(_socket.isConnected())

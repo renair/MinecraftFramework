@@ -17,11 +17,9 @@ private:
 	MinecraftBot(const MinecraftBot&);
 	MinecraftBot& operator=(const MinecraftBot&);
 public:
-	enum Errors;
-	MinecraftBot(char* addr, char* port);
+	MinecraftBot(const char* addr, const char* port);
 	~MinecraftBot();
 	int startHandling();
-
 
 	//error codes
 	static const int PACKET_NOT_FOUND;

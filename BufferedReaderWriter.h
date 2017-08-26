@@ -23,7 +23,7 @@ namespace NetworkEngine
 		BufferedReaderWriter(TcpClientSocket&);
 		//~BufferedReaderWriter(); // not to do here
 		ServiceTypes::Buffer& readData();
-		void sendData(ServiceTypes::Buffer&);
+		void sendData(const ServiceTypes::Buffer&);
 		const ServiceTypes::Buffer& buffer();
 	};
 }

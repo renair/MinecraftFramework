@@ -1,26 +1,36 @@
 #include "TcpClientSocket.h"
 #include "Buffer.h"
 #include <iostream>
-#include <WS2tcpip.h>
+#if defined(__unix__)
+#include<cstring>
+#endif
 
 using namespace NetworkEngine;
 
 TcpClientSocket::TcpClientSocket():
 	_socket(0), _isConnected(false)
 {
+#if defined(_WIN32) || defined(_WIN64)
 	if(!init(MAKEWORD(2, 0))) //version 2
 	{
 		std::cout << "Error in initialization socket!" << std::endl;
 	}
+#elif defined(__unix__)
+	init(0); // create socket here
+#endif
 }
 
 TcpClientSocket::TcpClientSocket(const char* host, const char* port)
 {
+#if defined(_WIN32) || defined(_WIN64)
 	if(!init(MAKEWORD(2, 0))) //version 2
 	{
 		std::cout << "Error in initialization socket!" << std::endl;
 		return;
 	}
+#elif defined(__unix__)
+	init(0); // create socket here
+#endif
 	if(!connect(host, port))
 	{
 		std::cout << "Can't connect to the " << host << ':' << port << std::endl;
@@ -56,6 +66,7 @@ bool TcpClientSocket::connect(const char* host, const char* port)
 
 bool TcpClientSocket::init(WORD WSAVersion)
 {
+#if defined(_WIN32) || defined(_WIN64)
 	if (WSAStartup(WSAVersion, &_wsadata)) //return 0 on success
 	{
 		std::cout << "WSAStartup error!" << std::endl;
@@ -66,6 +77,7 @@ bool TcpClientSocket::init(WORD WSAVersion)
 		std::cout << "Not supported WSA version." << std::endl;
 		return false;
 	}
+#endif
 	_socket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 	if(_socket == SOCKET_ERROR)
 	{
@@ -112,7 +124,11 @@ void TcpClientSocket::close() const
 {
 	if(isConnected())
 	{
+#if defined(_WIN32) || defined(_WIN64)
 		::closesocket(_socket);
+#elif defined(__unix__)
+		::close(_socket);
+#endif
 		_isConnected = false;
 	}
 }

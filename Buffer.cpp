@@ -61,7 +61,7 @@ void Buffer::append(void* src, unsigned int len)
 	_size += len;
 }
 
-inline unsigned int& Buffer::offset() const
+unsigned int& Buffer::offset() const
 {
 	return _offset;
 }

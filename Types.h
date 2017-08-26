@@ -3,6 +3,9 @@
 //http://wiki.vg/index.php?title=Protocol&oldid=6003#Data_types
 
 #include<string>
+#if defined(__unix__)
+#include<cstring>
+#endif
 #include"Buffer.h"
 
 namespace MinecraftTypes

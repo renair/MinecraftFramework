@@ -52,7 +52,7 @@ ServiceTypes::Buffer& BufferedReaderWriter::readData()
 	return _buffer;
 }
 
-void BufferedReaderWriter::sendData(ServiceTypes::Buffer& buff)
+void BufferedReaderWriter::sendData(const ServiceTypes::Buffer& buff)
 {
 	MinecraftTypes::VarInt packetSize(buff.size());
 	char internalBuffer[5];

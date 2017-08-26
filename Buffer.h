@@ -23,7 +23,7 @@ namespace ServiceTypes
 		~Buffer();
 		Buffer& operator=(const Buffer&);
 		void append(void*, unsigned int len);
-		inline unsigned int& offset() const;
+		unsigned int& offset() const;
 		void writeData(void * src, unsigned int len);
 		unsigned int readData(void* dest, unsigned int size) const;
 		void writeString(const MinecraftTypes::String&);
