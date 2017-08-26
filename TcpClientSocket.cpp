@@ -104,7 +104,7 @@ unsigned int TcpClientSocket::read(char* buff, unsigned int len) const
 	return bytesReaded;
 }
 
-unsigned int TcpClientSocket::write(char* buff, unsigned int len) const
+unsigned int TcpClientSocket::write(const char* buff, unsigned int len) const
 {
 	if(!isConnected())
 	{

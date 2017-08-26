@@ -48,19 +48,6 @@ void Buffer::allocateMore(unsigned int bytesToAlloc)
 	_maxSize += bytesToAlloc;
 }
 
-void Buffer::append(void* src, unsigned int len)
-{
-	if(size()+len > _maxSize)
-	{
-		allocateMore(len*2);
-	}
-	if(src != NULL)
-	{
-		memcpy(data() + size(), src, len);
-	}
-	_size += len;
-}
-
 unsigned int& Buffer::offset() const
 {
 	return _offset;
@@ -70,7 +57,7 @@ void Buffer::writeData(void* src, unsigned int len)
 {
 	if(offset()+len > _maxSize)
 	{
-		allocateMore(128);
+		allocateMore(len*2);
 	}
 	memcpy(_allocator+offset(), src, len);
 	offset() += len;
@@ -105,7 +92,12 @@ MinecraftTypes::String Buffer::readString() const
 	return str;
 }
 
-char* Buffer::data() const
+char* Buffer::data()
+{
+	return _allocator;
+}
+
+const char* Buffer::data() const
 {
 	return _allocator;
 }
@@ -131,4 +123,5 @@ void Buffer::printBytes(unsigned char col, char separator) const
 void Buffer::clear()
 {
 	_size = 0;
+	offset() = 0;
 }

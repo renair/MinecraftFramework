@@ -42,7 +42,7 @@ namespace NetworkEngine
 		~TcpClientSocket();
 		bool connect(const char* host, const char* port);
 		unsigned int read(char* buff, unsigned int len) const;
-		unsigned int write(char* buff, unsigned int len) const;
+		unsigned int write(const char* buff, unsigned int len) const;
 		void close() const;
 		bool isConnected() const;
 	};

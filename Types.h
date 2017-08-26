@@ -33,10 +33,10 @@ namespace MinecraftTypes
 		mutable unsigned char _bytes;
 
 		varint(long);
-		unsigned short decode(char*);
+		unsigned short decode(const char*);
 		unsigned short encode(char*) const;
 		varint& read(const ServiceTypes::Buffer&);
-		varint & write(ServiceTypes::Buffer& buff);
+		varint& write(ServiceTypes::Buffer& buff);
 		const varint & write(ServiceTypes::Buffer& buff) const;
 		const varint operator=(long);
 		operator long();
@@ -48,7 +48,7 @@ namespace MinecraftTypes
 		mutable unsigned char _bytes;
 
 		varlong(long long);
-		unsigned short decode(char*);
+		unsigned short decode(const char*);
 		unsigned short encode(char*) const;
 		varlong& read(const ServiceTypes::Buffer&);
 		varlong& write(ServiceTypes::Buffer&);

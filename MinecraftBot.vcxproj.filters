@@ -87,5 +87,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
+    <None Include=".travis.yml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="CMakeLists.txt" />
   </ItemGroup>
 </Project>

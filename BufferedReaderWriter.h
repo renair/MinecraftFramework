@@ -15,13 +15,13 @@ namespace NetworkEngine
 		TcpClientSocket& _socket;
 		ServiceTypes::Buffer _buffer;
 
-		BufferedReaderWriter(const BufferedReaderWriter&);
-		//TODO BufferedReaderWriter& operator=(const BufferedReaderWriter&);
+		BufferedReaderWriter(const BufferedReaderWriter&) = delete;
+		BufferedReaderWriter& operator=(const BufferedReaderWriter&) = delete;
 		MinecraftTypes::VarInt readVarInt(unsigned int offset = 0);
 		void writeVarInt(MinecraftTypes::VarInt, unsigned int offset = 0);
 	public:
 		BufferedReaderWriter(TcpClientSocket&);
-		//~BufferedReaderWriter(); // not to do here
+		//~BufferedReaderWriter(); // nothing to do here
 		ServiceTypes::Buffer& readData();
 		void sendData(const ServiceTypes::Buffer&);
 		const ServiceTypes::Buffer& buffer();

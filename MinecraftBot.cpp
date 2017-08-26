@@ -51,10 +51,6 @@ void MinecraftBot::login()
 	handshake();
 	LoginStartPacket pack("CPP_Bot");
 	_bufferedIO.sendData(pack.dump());
-	/*ServiceTypes::Buffer loginSuccess = _bufferedIO.readData();
-	Packet* loginSuccessPacket = Packet::getServerPacket(0x02);
-	loginSuccessPacket->load(loginSuccess);*/
-	//TODO implement method
 }
 
 int MinecraftBot::startHandling()
@@ -62,11 +58,9 @@ int MinecraftBot::startHandling()
 	login();
 	while(true)
 	{
-		// TODO some reading bug here!
 		_bufferedIO.readData();
-		// or here o_O
 		long packetID = readPacketID();
-		std::cout << "Received packet #" << packetID;
+		std::cout << "Received packet 0x" << hex << packetID << dec;
 		Packets::Packet* packet = Packets::Packet::getServerPacket(packetID);
 		if(packet != NULL)
 		{

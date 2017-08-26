@@ -28,7 +28,7 @@ unsigned short varint::encode(char* destination) const
 	return i;
 }
 
-unsigned short varint::decode(char* source)
+unsigned short varint::decode(const char* source)
 {
 	unsigned char i = 0;
 	char byte = 0;
@@ -53,21 +53,17 @@ varint& varint::read(const ServiceTypes::Buffer& buff)
 
 varint& varint::write(ServiceTypes::Buffer& buff)
 {
-	buff.offset() += encode(buff.data() + buff.offset());
-	if (buff.offset() > buff.size())
-	{
-		buff.append(NULL, buff.offset() - buff.size());
-	}
+	char tmpBuff[5];
+	encode(tmpBuff);
+	buff.writeData(tmpBuff, _bytes);
 	return *this;
 }
 
 const varint& varint::write(ServiceTypes::Buffer& buff) const
 {
-	buff.offset() += encode(buff.data() + buff.offset());
-	if(buff.offset() > buff.size())
-	{
-		buff.append(NULL, buff.offset()-buff.size());
-	}
+	char tmpBuff[5];
+	encode(tmpBuff);
+	buff.writeData(tmpBuff, _bytes);
 	return *this;
 }
 
@@ -108,7 +104,7 @@ unsigned short varlong::encode(char* destination) const
 	return i;
 }
 
-unsigned short varlong::decode(char* source)
+unsigned short varlong::decode(const char* source)
 {
 	unsigned char i = 0;
 	char byte = 0;
@@ -132,21 +128,17 @@ varlong& varlong::read(const ServiceTypes::Buffer& buff)
 
 varlong& varlong::write(ServiceTypes::Buffer& buff)
 {
-	buff.offset() += encode(buff.data() + buff.offset());
-	if (buff.offset() > buff.size())
-	{
-		buff.append(NULL, buff.offset() - buff.size());
-	}
+	char tmpBuff[10];
+	encode(tmpBuff);
+	buff.writeData(tmpBuff, _bytes);
 	return *this;
 }
 
 const varlong& varlong::write(ServiceTypes::Buffer& buff) const
 {
-	buff.offset() += encode(buff.data() + buff.offset());
-	if (buff.offset() > buff.size())
-	{
-		buff.append(NULL, buff.offset() - buff.size());
-	}
+	char tmpBuff[10];
+	encode(tmpBuff);
+	buff.writeData(tmpBuff, _bytes);
 	return *this;
 }
 
