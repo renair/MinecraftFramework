@@ -30,20 +30,11 @@
     <ClInclude Include="LoginStartPacket.h">
       <Filter>MinecraftFramework\Packets\ClientPackets</Filter>
     </ClInclude>
-    <ClInclude Include="BufferedReaderWriter.h">
-      <Filter>MinecraftFramework\Networking</Filter>
-    </ClInclude>
-    <ClInclude Include="TcpClientSocket.h">
-      <Filter>MinecraftFramework\Networking</Filter>
-    </ClInclude>
     <ClInclude Include="Buffer.h">
       <Filter>MinecraftFramework\DataTypes</Filter>
     </ClInclude>
     <ClInclude Include="Types.h">
       <Filter>MinecraftFramework\DataTypes</Filter>
-    </ClInclude>
-    <ClInclude Include="ChangeIndianess.h">
-      <Filter>MinecraftFramework\Networking</Filter>
     </ClInclude>
     <ClInclude Include="PacketsList.h">
       <Filter>MinecraftFramework\Packets</Filter>
@@ -53,6 +44,15 @@
     </ClInclude>
     <ClInclude Include="LoginSuccessPacket.h">
       <Filter>MinecraftFramework\Packets\ServerPackets</Filter>
+    </ClInclude>
+    <ClInclude Include="BufferedReaderWriter.h">
+      <Filter>MinecraftFramework\Networking</Filter>
+    </ClInclude>
+    <ClInclude Include="ChangeIndianess.h">
+      <Filter>MinecraftFramework\Networking</Filter>
+    </ClInclude>
+    <ClInclude Include="TcpClientSocket.h">
+      <Filter>MinecraftFramework\Networking</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -64,12 +64,6 @@
     </ClCompile>
     <ClCompile Include="Handshake.cpp">
       <Filter>MinecraftFramework\Packets\ClientPackets</Filter>
-    </ClCompile>
-    <ClCompile Include="BufferedReaderWriter.cpp">
-      <Filter>MinecraftFramework\Networking</Filter>
-    </ClCompile>
-    <ClCompile Include="TcpClientSocket.cpp">
-      <Filter>MinecraftFramework\Networking</Filter>
     </ClCompile>
     <ClCompile Include="Buffer.cpp">
       <Filter>MinecraftFramework\DataTypes</Filter>
@@ -83,6 +77,12 @@
     </ClCompile>
     <ClCompile Include="LoginSuccessPacket.cpp">
       <Filter>MinecraftFramework\Packets\ServerPackets</Filter>
+    </ClCompile>
+    <ClCompile Include="BufferedReaderWriter.cpp">
+      <Filter>MinecraftFramework\Networking</Filter>
+    </ClCompile>
+    <ClCompile Include="TcpClientSocket.cpp">
+      <Filter>MinecraftFramework\Networking</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

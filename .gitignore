@@ -1,3 +1,5 @@
 main.cpp
 CMakeLists.txt.save
 compile/
+*.user
+Debug/
