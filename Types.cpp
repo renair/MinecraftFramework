@@ -5,8 +5,16 @@ using namespace MinecraftTypes;
 //varint implementation
 
 varint::varint(long val):
-	_val(val)
+	_val(val),_bytes(0)
 {}
+
+bool varint::decodeByte(char byte) //return true when reading done
+{
+	char tmp = byte & 0b01111111;
+	_val |= tmp << (7 * _bytes);
+	_bytes++;
+	return ((byte & 0b10000000) == 0);
+}
 
 unsigned short varint::encode(char* destination) const
 {
@@ -82,7 +90,7 @@ varint::operator long()
 //varlong implementation
 
 varlong::varlong(long long val) :
-	_val(val)
+	_val(val), _bytes(0)
 {}
 
 unsigned short varlong::encode(char* destination) const
@@ -118,6 +126,15 @@ unsigned short varlong::decode(const char* source)
 	} while ((byte & 0b10000000) != 0);
 	_bytes = i;
 	return i;
+}
+
+bool varlong::decodeByte(char byte) //return true when reading done
+{
+
+	char tmp = byte & 0b01111111;
+	_val |= tmp << (7 * _bytes);
+	_bytes++;
+	return ((byte & 0b10000000) == 0);
 }
 
 varlong& varlong::read(const ServiceTypes::Buffer& buff)

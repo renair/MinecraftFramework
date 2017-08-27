@@ -54,6 +54,9 @@
     <ClInclude Include="TcpClientSocket.h">
       <Filter>MinecraftFramework\Networking</Filter>
     </ClInclude>
+    <ClInclude Include="KeepAlivePacket.h">
+      <Filter>MinecraftFramework\Packets\ServerPackets</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Packet.cpp">
@@ -83,6 +86,9 @@
     </ClCompile>
     <ClCompile Include="TcpClientSocket.cpp">
       <Filter>MinecraftFramework\Networking</Filter>
+    </ClCompile>
+    <ClCompile Include="KeepAlivePacket.cpp">
+      <Filter>MinecraftFramework\Packets\ServerPackets</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

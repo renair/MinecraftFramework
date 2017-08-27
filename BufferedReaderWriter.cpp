@@ -1,5 +1,6 @@
 #include "BufferedReaderWriter.h"
 #include <algorithm>
+#include <iostream>
 
 using namespace NetworkEngine;
 
@@ -28,28 +29,43 @@ void BufferedReaderWriter::writeVarInt(MinecraftTypes::VarInt val, unsigned int 
 ServiceTypes::Buffer& BufferedReaderWriter::readData()
 {
 	_buffer.clear();
-	char buff[_middleBufferSize]; //binaries takes more space but it works faster
-	unsigned long readed = _socket.read(buff, _middleBufferSize);
-	while(readed < 5) //VarInt contain maximum 5 bytes
-	{
-		readed += _socket.read(buff + readed, _middleBufferSize - readed);
-	}
 	MinecraftTypes::VarInt dataLength(0);
-	readed -= dataLength.decode(buff); //amount of VarInt bytes decoded
-	_buffer.writeData(buff+dataLength._bytes, readed); //write data without VarInt
+	char buff[_middleBufferSize];
+	long readed = 0;
+	do
+	{
+		readed = _socket.read(buff, 1);
+		if(readed == 1)
+		{
+			continue;
+		}
+		else if (readed < 0)
+		{
+			_buffer.clear();
+			return _buffer; //return if socket broken
+		}
+	} while (!dataLength.decodeByte(buff[0]));
+	readed = 0;
 	while(readed < dataLength._val)
 	{
-		unsigned int len = _socket.read(buff, min(dataLength._val - readed, 1024)); //in prevent reading more than in packet bytes
+		int len = _socket.read(buff, std::min<long>(dataLength._val - readed, 1024)); //in prevent reading more than in packet bytes
+		if(len < 0)
+		{
+			_buffer.clear();
+			break;
+		}
 		_buffer.writeData(buff, len);
 		readed += len;
 	}
+	_buffer.printBytes();
+	std::cout << "\n\n\n\n";
 	return _buffer;
 }
 
 void BufferedReaderWriter::sendData(const ServiceTypes::Buffer& buff)
 {
 	MinecraftTypes::VarInt packetSize(buff.size());
-	char internalBuffer[5];
+	char internalBuffer[MinecraftTypes::VarInt::_maxBytes];
 	packetSize.encode(internalBuffer);
 	_socket.write(internalBuffer, packetSize._bytes);
 	_socket.write(buff.data(), buff.size());

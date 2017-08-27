@@ -87,7 +87,7 @@ bool TcpClientSocket::init(WORD WSAVersion)
 	return true;
 }
 
-unsigned int TcpClientSocket::read(char* buff, unsigned int len) const
+int TcpClientSocket::read(char* buff, unsigned int len) const
 {
 	if(!isConnected())
 	{
@@ -99,12 +99,11 @@ unsigned int TcpClientSocket::read(char* buff, unsigned int len) const
 	{
 		std::cout << "Can not read from socket." << std::endl;
 		_isConnected = false;
-		return bytesReaded;
 	}
 	return bytesReaded;
 }
 
-unsigned int TcpClientSocket::write(const char* buff, unsigned int len) const
+int TcpClientSocket::write(const char* buff, unsigned int len) const
 {
 	if(!isConnected())
 	{

@@ -12,8 +12,8 @@ std::unordered_map<long, Packet*>::iterator Packet::_iterator;
 void Packet::init()
 {
 	//put here new packets both fore server and client.
-	//_clientPacketsMap[0] = new ClientPackets::Handshake();
 	_serverPacketsMap[0x02] = new ServerPackets::LoginSuccessPacket();
+	_serverPacketsMap[0x00] = new ServerPackets::KeepAlivePacket();
 	_isInited = true;
 }
 

@@ -69,7 +69,15 @@ void Buffer::writeData(void* src, unsigned int len)
 
 unsigned int Buffer::readData(void* dest, unsigned int len) const
 {
-	len = offset() + len > size() ? size() - offset() : len;
+	if(len > _maxSize)
+	{
+		len = _maxSize;
+		offset() = 0;
+	}
+	else if(offset() + len > size())
+	{
+		offset() = size() - len;
+	}
 	memcpy(dest, data()+offset(), len);
 	offset() += len;
 	return len;

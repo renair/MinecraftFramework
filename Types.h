@@ -31,10 +31,12 @@ namespace MinecraftTypes
 	{
 		long _val;
 		mutable unsigned char _bytes;
+		static const short _maxBytes = 5;
 
 		varint(long);
 		unsigned short decode(const char*);
 		unsigned short encode(char*) const;
+		bool decodeByte(char); // return true when reading done
 		varint& read(const ServiceTypes::Buffer&);
 		varint& write(ServiceTypes::Buffer& buff);
 		const varint & write(ServiceTypes::Buffer& buff) const;
@@ -46,10 +48,12 @@ namespace MinecraftTypes
 	{
 		long long _val;
 		mutable unsigned char _bytes;
+		static const short _maxBytes = 10;
 
 		varlong(long long);
 		unsigned short decode(const char*);
 		unsigned short encode(char*) const;
+		bool decodeByte(char); // return true when reading done
 		varlong& read(const ServiceTypes::Buffer&);
 		varlong& write(ServiceTypes::Buffer&);
 		const varlong& write(ServiceTypes::Buffer&) const;

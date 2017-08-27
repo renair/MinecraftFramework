@@ -41,8 +41,8 @@ namespace NetworkEngine
 		TcpClientSocket(const char* host, const char* port);
 		~TcpClientSocket();
 		bool connect(const char* host, const char* port);
-		unsigned int read(char* buff, unsigned int len) const;
-		unsigned int write(const char* buff, unsigned int len) const;
+		int read(char* buff, unsigned int len) const;
+		int write(const char* buff, unsigned int len) const;
 		void close() const;
 		bool isConnected() const;
 	};

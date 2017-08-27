@@ -29,6 +29,7 @@ MinecraftBot::~MinecraftBot()
 long MinecraftBot::readPacketID()
 {
 	MinecraftTypes::VarInt res(0);
+	_bufferedIO.buffer().offset() = 0; //to read first bytes
 	res.read(_bufferedIO.buffer());
 	return res._val;
 }
@@ -59,9 +60,16 @@ int MinecraftBot::startHandling()
 	while(true)
 	{
 		_bufferedIO.readData();
+		if(_bufferedIO.buffer().size() == 0)
+		{
+			std::cout << "Cant read data to handling. Connection broken." << std::endl;
+			break;
+		}
 		long packetID = readPacketID();
 		std::cout << "Received packet 0x" << hex << packetID << dec;
 		Packets::Packet* packet = Packets::Packet::getServerPacket(packetID);
+		//_bufferedIO.buffer().printBytes();
+		//std::cout << "\n\n";
 		if(packet != NULL)
 		{
 			packet->load(_bufferedIO.buffer());
@@ -74,4 +82,5 @@ int MinecraftBot::startHandling()
 			std::cout << "\tnot found" << std::endl;
 		}
 	}
+	return 0;
 }
