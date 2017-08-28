@@ -2,22 +2,23 @@
 #include "Packet.h"
 #include "PacketsList.h"
 #include <iostream>
+#include <string>
 
 using namespace std;
 using namespace Packets;
 using namespace ClientPackets;
 
-MinecraftBot::MinecraftBot(const char* addr, const char* port):
-	_socket(addr, port), _bufferedIO(_socket)
+MinecraftBot::MinecraftBot(const char* addr, const char* port, long protocolVersion) :
+	_socket(addr, port),
+	_bufferedIO(_socket),
+	_protocolVersion(protocolVersion),
+	_host(addr),
+	_port(static_cast<short>(std::stoi(port))),
+	_isLoggedIn(false)
 {
 	if(_socket.isConnected())
 	{
 		cout << "Connection succes" << endl;
-	}
-	else
-	{
-		cout << "Can't connect to host " << addr << ':' << port << endl;
-		//throw MinecraftBotExceptions::NoHostConnection;
 	}
 }
 
@@ -34,51 +35,56 @@ long MinecraftBot::readPacketID()
 	return res._val;
 }
 
-void MinecraftBot::handshake()
+bool MinecraftBot::handshake()
 {
-	//TODO implement method
-	long protoVer = 5;
-	char* host = "platinium.ddns.net";
-	MinecraftTypes::UShort port = 25565; //default port
 	long nextState = 2; // get server status
 	// 1 - status
 	// 2 - login
-	HandshakePacket handshake(protoVer, host, port, nextState);
-	_bufferedIO.sendData(handshake.dump());
+	if(_socket.isConnected())
+	{
+		HandshakePacket handshake(_protocolVersion, _host.cstring(), _port, nextState);
+		_bufferedIO.sendData(handshake.dump());
+	}
+	return _socket.isConnected();
 }
 
-void MinecraftBot::login()
+void MinecraftBot::login(const char* name)
 {
-	handshake();
-	LoginStartPacket pack("CPP_Bot");
-	_bufferedIO.sendData(pack.dump());
+	if(handshake())
+	{
+		LoginStartPacket pack(name);
+		_bufferedIO.sendData(pack.dump());
+		if(_socket.isConnected())
+		{
+			_isLoggedIn = true;
+		}
+	}
 }
 
 int MinecraftBot::startHandling()
 {
-	login();
-	while(true)
+	while(_isLoggedIn && _socket.isConnected())
 	{
 		_bufferedIO.readData();
-		if(_bufferedIO.buffer().size() == 0)
+		/*if(_bufferedIO.buffer().size() == 0)
 		{
 			std::cout << "Cant read data to handling. Connection broken." << std::endl;
 			break;
-		}
+		}*/
 		long packetID = readPacketID();
-		std::cout << "Received packet 0x" << hex << packetID << dec;
+		//std::cout << "Received packet 0x" << hex << packetID << dec;
 		Packets::Packet* packet = Packets::Packet::getServerPacket(packetID);
 		if(packet != NULL)
 		{
 			packet->load(_bufferedIO.buffer());
-			std::cout << "\tloadeded ";
+			//std::cout << "\tloadeded ";
 			packet->handle(_bufferedIO);
-			std::cout << "\thandled" << std::endl;
+			std::cout << packetID << "\thandled" << std::endl;
 			delete packet; // delete if only packet was created
 		}
 		else
 		{
-			std::cout << "\tnot found" << std::endl;
+			//std::cout << "\tnot found" << std::endl;
 		}
 	}
 	return 0;

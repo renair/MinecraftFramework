@@ -9,16 +9,21 @@ class MinecraftBot
 private:
 	NetworkEngine::TcpClientSocket _socket;
 	NetworkEngine::BufferedReaderWriter _bufferedIO;
+	long _protocolVersion;
+	MinecraftTypes::String _host;
+	MinecraftTypes::UShort _port;
+
+	bool _isLoggedIn;
 
 	long readPacketID();
-	void handshake();
-	void login();
+	bool handshake();
 
-	MinecraftBot(const MinecraftBot&);
-	MinecraftBot& operator=(const MinecraftBot&);
+	MinecraftBot(const MinecraftBot&) = delete;
+	MinecraftBot& operator=(const MinecraftBot&) = delete;
 public:
-	MinecraftBot(const char* addr, const char* port);
+	MinecraftBot(const char* addr, const char* port = "25565", long protocolVersion = 5);
 	~MinecraftBot();
+	void login(const char*);
 	int startHandling();
 
 	//error codes

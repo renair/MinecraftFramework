@@ -20,7 +20,8 @@ TcpClientSocket::TcpClientSocket():
 #endif
 }
 
-TcpClientSocket::TcpClientSocket(const char* host, const char* port)
+TcpClientSocket::TcpClientSocket(const char* host, const char* port):
+	_isConnected(false)
 {
 #if defined(_WIN32) || defined(_WIN64)
 	if(!init(MAKEWORD(2, 0))) //version 2
