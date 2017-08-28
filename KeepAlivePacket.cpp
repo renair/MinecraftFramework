@@ -5,7 +5,7 @@ using namespace ServerPackets;
 using namespace NetworkEngine;
 using namespace ServiceTypes;
 
-const long KeepAlivePacket::_ID = 0x00;
+const MinecraftTypes::VarInt KeepAlivePacket::_ID = 0x00;
 
 KeepAlivePacket::KeepAlivePacket() :
 	_keepAliveID(0)
@@ -32,6 +32,7 @@ void KeepAlivePacket::load(const Buffer& buff)
 Buffer KeepAlivePacket::dump()
 {
 	Buffer b;
+	_ID.write(b);
 	b.writeData(&_keepAliveID, sizeof(_keepAliveID));
 	return b;
 }
@@ -44,5 +45,5 @@ void KeepAlivePacket::handle(BufferedReaderWriter& io)
 
 long KeepAlivePacket::getID()
 {
-	return _ID;
+	return _ID._val;
 }

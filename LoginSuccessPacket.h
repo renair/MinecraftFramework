@@ -10,7 +10,7 @@ namespace Packets
 		class LoginSuccessPacket : public Packet
 		{
 		private:
-			static const long _ID;
+			static const MinecraftTypes::VarInt _ID;
 			MinecraftTypes::String _UUID;
 			MinecraftTypes::String _userName;
 		public:

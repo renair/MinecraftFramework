@@ -68,11 +68,10 @@ int MinecraftBot::startHandling()
 		long packetID = readPacketID();
 		std::cout << "Received packet 0x" << hex << packetID << dec;
 		Packets::Packet* packet = Packets::Packet::getServerPacket(packetID);
-		//_bufferedIO.buffer().printBytes();
-		//std::cout << "\n\n";
 		if(packet != NULL)
 		{
 			packet->load(_bufferedIO.buffer());
+			std::cout << "\tloadeded ";
 			packet->handle(_bufferedIO);
 			std::cout << "\thandled" << std::endl;
 			delete packet; // delete if only packet was created

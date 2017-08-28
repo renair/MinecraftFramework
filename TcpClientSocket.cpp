@@ -31,10 +31,7 @@ TcpClientSocket::TcpClientSocket(const char* host, const char* port)
 #elif defined(__unix__)
 	init(0); // create socket here
 #endif
-	if(!connect(host, port))
-	{
-		std::cout << "Can't connect to the " << host << ':' << port << std::endl;
-	}
+	connect(host, port);
 }
 
 TcpClientSocket::~TcpClientSocket()

@@ -57,8 +57,6 @@ ServiceTypes::Buffer& BufferedReaderWriter::readData()
 		_buffer.writeData(buff, len);
 		readed += len;
 	}
-	_buffer.printBytes();
-	std::cout << "\n\n\n\n";
 	return _buffer;
 }
 

@@ -9,7 +9,7 @@ namespace Packets
 		class KeepAlivePacket : public Packet
 		{
 		private:
-			static const long _ID;
+			static const MinecraftTypes::VarInt _ID;
 			MinecraftTypes::Int _keepAliveID;
 			Packet* clone();
 		public:

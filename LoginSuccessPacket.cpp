@@ -6,7 +6,7 @@ using namespace ServiceTypes;
 using namespace NetworkEngine;
 using namespace MinecraftTypes;
 
-const long LoginSuccessPacket::_ID = 0x02;
+const MinecraftTypes::VarInt LoginSuccessPacket::_ID(0x02);
 
 
 LoginSuccessPacket::LoginSuccessPacket():
@@ -37,6 +37,7 @@ void LoginSuccessPacket::load(const Buffer& buff)
 Buffer LoginSuccessPacket::dump()
 {
 	Buffer b;
+	_ID.write(b);
 	b.writeString(_UUID);
 	b.writeString(_userName);
 	return b;
@@ -49,5 +50,5 @@ void LoginSuccessPacket::handle(BufferedReaderWriter& io)
 
 long LoginSuccessPacket::getID()
 {
-	return _ID;
+	return _ID._val;
 }
