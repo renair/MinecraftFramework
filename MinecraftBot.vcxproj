@@ -152,6 +152,7 @@
     <ClInclude Include="MinecraftBot.h" />
     <ClInclude Include="Packet.h" />
     <ClInclude Include="PacketsList.h" />
+    <ClInclude Include="PlayerPacket.h" />
     <ClInclude Include="TcpClientSocket.h" />
     <ClInclude Include="Types.h" />
   </ItemGroup>
@@ -165,6 +166,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MinecraftBot.cpp" />
     <ClCompile Include="Packet.cpp" />
+    <ClCompile Include="PlayerPacket.cpp" />
     <ClCompile Include="TcpClientSocket.cpp" />
     <ClCompile Include="Types.cpp" />
   </ItemGroup>

@@ -57,6 +57,9 @@
     <ClInclude Include="KeepAlivePacket.h">
       <Filter>MinecraftFramework\Packets\ServerPackets</Filter>
     </ClInclude>
+    <ClInclude Include="PlayerPacket.h">
+      <Filter>MinecraftFramework\Packets\ClientPackets</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Packet.cpp">
@@ -89,6 +92,9 @@
     </ClCompile>
     <ClCompile Include="KeepAlivePacket.cpp">
       <Filter>MinecraftFramework\Packets\ServerPackets</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerPacket.cpp">
+      <Filter>MinecraftFramework\Packets\ClientPackets</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

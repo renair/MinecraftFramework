@@ -66,11 +66,6 @@ int MinecraftBot::startHandling()
 	while(_isLoggedIn && _socket.isConnected())
 	{
 		_bufferedIO.readData();
-		/*if(_bufferedIO.buffer().size() == 0)
-		{
-			std::cout << "Cant read data to handling. Connection broken." << std::endl;
-			break;
-		}*/
 		long packetID = readPacketID();
 		//std::cout << "Received packet 0x" << hex << packetID << dec;
 		Packets::Packet* packet = Packets::Packet::getServerPacket(packetID);
