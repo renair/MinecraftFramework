@@ -16,7 +16,7 @@ namespace Packets
 			MinecraftTypes::Boolean _isOnEarth;
 		public:
 			PlayerPacket(bool isOnEarth = true);
-			PlayerPacket::PlayerPacket(const PlayerPacket& copy);
+			PlayerPacket(const PlayerPacket& copy);
 			~PlayerPacket();
 			virtual void load(const ServiceTypes::Buffer&);
 			virtual ServiceTypes::Buffer dump();

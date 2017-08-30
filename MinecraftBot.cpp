@@ -1,5 +1,4 @@
 #include "MinecraftBot.h"
-#include "Packet.h"
 #include "PacketsList.h"
 #include <iostream>
 #include <string>
@@ -72,7 +71,8 @@ int MinecraftBot::startHandling()
 		if(packet != NULL)
 		{
 			packet->load(_bufferedIO.buffer());
-			//std::cout << "\tloadeded ";
+			//preprocess packet
+			packetProcessing(packet);
 			packet->handle(_bufferedIO);
 			std::cout << packetID << "\thandled" << std::endl;
 			delete packet; // delete if only packet was created
@@ -83,4 +83,18 @@ int MinecraftBot::startHandling()
 		}
 	}
 	return 0;
+}
+
+void MinecraftBot::packetProcessing(Packets::Packet* pack)
+{
+	switch(pack->getID())
+	{
+	case 0x05: // spawn position packet
+		ServerPackets::SpawnPositionPacket* spp = static_cast<ServerPackets::SpawnPositionPacket*>(pack);
+		_position._coords._x = spp->getX();
+		_position._coords._y = spp->getY();
+		_position._coords._z = spp->getZ();
+		std::cout << "Spawned at: " << *spp << std::endl;
+		break;
+	}
 }

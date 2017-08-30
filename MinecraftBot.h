@@ -3,6 +3,7 @@
 
 #include "TcpClientSocket.h"
 #include "BufferedReaderWriter.h"
+#include "Packet.h"
 
 class MinecraftBot
 {
@@ -12,11 +13,12 @@ private:
 	long _protocolVersion;
 	MinecraftTypes::String _host;
 	MinecraftTypes::UShort _port;
-
+	MinecraftTypes::Position _position;
 	bool _isLoggedIn;
 
 	long readPacketID();
 	bool handshake();
+	void packetProcessing(Packets::Packet*);
 
 	MinecraftBot(const MinecraftBot&) = delete;
 	MinecraftBot& operator=(const MinecraftBot&) = delete;

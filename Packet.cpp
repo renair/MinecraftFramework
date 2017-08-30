@@ -14,6 +14,7 @@ void Packet::init()
 	//put here new packets both fore server and client.
 	_serverPacketsMap[0x02] = new ServerPackets::LoginSuccessPacket();
 	_serverPacketsMap[0x00] = new ServerPackets::KeepAlivePacket();
+	_serverPacketsMap[0x05] = new ServerPackets::SpawnPositionPacket();
 	_isInited = true;
 }
 

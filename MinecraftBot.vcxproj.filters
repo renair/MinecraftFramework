@@ -60,6 +60,9 @@
     <ClInclude Include="PlayerPacket.h">
       <Filter>MinecraftFramework\Packets\ClientPackets</Filter>
     </ClInclude>
+    <ClInclude Include="SpawnPositionPacket.h">
+      <Filter>MinecraftFramework\Packets\ServerPackets</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Packet.cpp">
@@ -95,6 +98,9 @@
     </ClCompile>
     <ClCompile Include="PlayerPacket.cpp">
       <Filter>MinecraftFramework\Packets\ClientPackets</Filter>
+    </ClCompile>
+    <ClCompile Include="SpawnPositionPacket.cpp">
+      <Filter>MinecraftFramework\Packets\ServerPackets</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
