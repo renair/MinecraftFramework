@@ -1,12 +1,13 @@
-#ifndef _PALYER_PACKET
-#include "Packet.h"
+#ifndef _PLAYER_PACKET
+#define _PLAYER_PACKET
 
+#include "Packet.h"
 
 namespace Packets
 {
 	namespace ClientPackets
 	{
-		class PlayerPacket : Packet
+		class PlayerPacket : public Packet
 		{
 		private:
 			static const MinecraftTypes::VarInt _ID;

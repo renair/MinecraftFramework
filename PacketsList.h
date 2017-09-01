@@ -3,6 +3,8 @@
 //server bound packets
 #include "Handshake.h"
 #include "LoginStartPacket.h"
+#include "PlayerPacket.h"
+#include "PlayerPositionPacket.h"
 
 //client bound packets
 #include "LoginSuccessPacket.h"

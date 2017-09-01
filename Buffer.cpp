@@ -115,17 +115,21 @@ unsigned int Buffer::size() const
 	return _size;
 }
 
-void Buffer::printBytes(unsigned char col, char separator) const
+void Buffer::printBytes(std::ostream& os, unsigned char col, char separator) const
 {
 	unsigned char* allocator = (unsigned char*)data();
+	const short buffSize = 20;
+	char tmpBuff[buffSize];
 	for(unsigned int line = 0; line <= size()/col; ++line)
 	{
 		for(unsigned int column = 0; column < col && (line*col + column) < size(); ++column)
 		{
-			printf("0x%02X%c",*(allocator+(line*col+column)),separator);
+			sprintf_s<buffSize>(tmpBuff, "0x%02X%c",*(allocator+(line*col+column)),separator);
+			os << tmpBuff;
 		}
-		printf("\n");
+		os << std::endl;
 	}
+	os.flush();
 }
 
 void Buffer::clear()
