@@ -124,7 +124,7 @@ void Buffer::printBytes(std::ostream& os, unsigned char col, char separator) con
 	{
 		for(unsigned int column = 0; column < col && (line*col + column) < size(); ++column)
 		{
-			sprintf_s<buffSize>(tmpBuff, "0x%02X%c",*(allocator+(line*col+column)),separator);
+			snprintf(tmpBuff, buffSize, "0x%02X%c",*(allocator+(line*col+column)),separator);
 			os << tmpBuff;
 		}
 		os << std::endl;

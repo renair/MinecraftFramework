@@ -3,3 +3,4 @@ CMakeLists.txt.save
 compile/
 *.user
 Debug/
+packets_log.txt
