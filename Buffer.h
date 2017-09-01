@@ -1,6 +1,8 @@
 #ifndef _BUFFER
 #define _BUFFER
 
+#include <iostream>
+
 namespace MinecraftTypes
 {
 	class String;
@@ -30,7 +32,7 @@ namespace ServiceTypes
 		char* data();
 		const char* data() const;
 		unsigned int size() const;
-		void printBytes(unsigned char col = 6, char separator = ' ') const;
+		void printBytes(std::ostream& os = std::cout, unsigned char col = 6, char separator = ' ') const;
 		void clear();
 	};
 }

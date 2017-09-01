@@ -1,6 +1,7 @@
 #include "MinecraftBot.h"
 #include "PacketsList.h"
 #include <iostream>
+#include <fstream>
 #include <string>
 
 using namespace std;
@@ -62,12 +63,24 @@ void MinecraftBot::login(const char* name)
 
 int MinecraftBot::startHandling()
 {
+	unsigned long long i = 0;
+	std::ofstream file("packets_log.txt");
 	while(_isLoggedIn && _socket.isConnected())
 	{
 		_bufferedIO.readData();
 		long packetID = readPacketID();
-		//std::cout << "Received packet 0x" << hex << packetID << dec;
+		file << "Received packet 0x" << hex << packetID << '\t' << dec << _bufferedIO.buffer().size() << " bytes" <<  std::endl;
+		_bufferedIO.buffer().printBytes(file);
+		file << std::endl;
 		Packets::Packet* packet = Packets::Packet::getServerPacket(packetID);
+		
+		/*if (++i % 100 == 0)
+		{
+			ClientPackets::PlayerPositionPacket move(-147.5+0.01*i, 85.0, -132.5 + 0.01*i);
+			std::cout << "Move" << std::endl;
+			_bufferedIO.sendData(move.dump());
+		}*/
+
 		if(packet != NULL)
 		{
 			packet->load(_bufferedIO.buffer());
@@ -87,8 +100,15 @@ int MinecraftBot::startHandling()
 
 void MinecraftBot::packetProcessing(Packets::Packet* pack)
 {
+	//ClientPackets::PlayerPositionPacket move(_position._coords._x, _position._coords._y, _position._coords._z);
 	switch(pack->getID())
 	{
+	case 0x00: //keep alive packet
+		/*_position._coords._x += 1;
+		_position._coords._z += 1;
+		move.dump().printBytes();
+		_bufferedIO.sendData(move.dump());*/
+		break;
 	case 0x05: // spawn position packet
 		ServerPackets::SpawnPositionPacket* spp = static_cast<ServerPackets::SpawnPositionPacket*>(pack);
 		_position._coords._x = spp->getX();
