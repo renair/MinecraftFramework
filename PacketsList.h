@@ -5,6 +5,7 @@
 #include "LoginStartPacket.h"
 #include "PlayerPacket.h"
 #include "PlayerPositionPacket.h"
+#include "ClientSettingsPacket.h"
 
 //client bound packets
 #include "LoginSuccessPacket.h"

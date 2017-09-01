@@ -70,7 +70,7 @@ int MinecraftBot::startHandling()
 		_bufferedIO.readData();
 		long packetID = readPacketID();
 		file << "Received packet 0x" << hex << packetID << '\t' << dec << _bufferedIO.buffer().size() << " bytes" <<  std::endl;
-		_bufferedIO.buffer().printBytes(file);
+		//_bufferedIO.buffer().printBytes(file);
 		file << std::endl;
 		Packets::Packet* packet = Packets::Packet::getServerPacket(packetID);
 		

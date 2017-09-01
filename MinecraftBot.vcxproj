@@ -145,6 +145,7 @@
     <ClInclude Include="Buffer.h" />
     <ClInclude Include="BufferedReaderWriter.h" />
     <ClInclude Include="ChangeIndianess.h" />
+    <ClInclude Include="ClientSettingsPacket.h" />
     <ClInclude Include="Handshake.h" />
     <ClInclude Include="KeepAlivePacket.h" />
     <ClInclude Include="LoginStartPacket.h" />
@@ -161,6 +162,7 @@
   <ItemGroup>
     <ClCompile Include="Buffer.cpp" />
     <ClCompile Include="BufferedReaderWriter.cpp" />
+    <ClCompile Include="ClientSettingsPacket.cpp" />
     <ClCompile Include="Handshake.cpp" />
     <ClCompile Include="KeepAlivePacket.cpp" />
     <ClCompile Include="LoginStartPacket.cpp" />

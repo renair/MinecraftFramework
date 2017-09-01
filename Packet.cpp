@@ -19,6 +19,7 @@ void Packet::init()
 	//client packets
 	_clientPacketsMap[0x03] = new ClientPackets::PlayerPacket();
 	_clientPacketsMap[0x04] = new ClientPackets::PlayerPositionPacket();
+	_clientPacketsMap[0x15] = new ClientPackets::ClientSettingsPacket();
 	_isInited = true;
 }
 
