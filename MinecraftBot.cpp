@@ -74,12 +74,12 @@ int MinecraftBot::startHandling()
 		file << std::endl;
 		Packets::Packet* packet = Packets::Packet::getServerPacket(packetID);
 		
-		/*if (++i % 100 == 0)
+		if (++i % 100 == 0)
 		{
 			ClientPackets::PlayerPositionPacket move(-147.5+0.01*i, 85.0, -132.5 + 0.01*i);
 			std::cout << "Move" << std::endl;
 			_bufferedIO.sendData(move.dump());
-		}*/
+		}
 
 		if(packet != NULL)
 		{

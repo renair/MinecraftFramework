@@ -155,6 +155,7 @@
     <ClInclude Include="PacketsList.h" />
     <ClInclude Include="PlayerPacket.h" />
     <ClInclude Include="PlayerPositionPacket.h" />
+    <ClInclude Include="PluginMessagePacket.h" />
     <ClInclude Include="SpawnPositionPacket.h" />
     <ClInclude Include="TcpClientSocket.h" />
     <ClInclude Include="Types.h" />
@@ -172,6 +173,7 @@
     <ClCompile Include="Packet.cpp" />
     <ClCompile Include="PlayerPacket.cpp" />
     <ClCompile Include="PlayerPositionPacket.cpp" />
+    <ClCompile Include="PluginMessagePacket.cpp" />
     <ClCompile Include="SpawnPositionPacket.cpp" />
     <ClCompile Include="TcpClientSocket.cpp" />
     <ClCompile Include="Types.cpp" />

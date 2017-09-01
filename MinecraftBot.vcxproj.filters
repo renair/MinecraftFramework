@@ -69,6 +69,9 @@
     <ClInclude Include="ClientSettingsPacket.h">
       <Filter>MinecraftFramework\Packets\ClientPackets</Filter>
     </ClInclude>
+    <ClInclude Include="PluginMessagePacket.h">
+      <Filter>MinecraftFramework\Packets\ClientPackets</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Packet.cpp">
@@ -112,6 +115,9 @@
       <Filter>MinecraftFramework\Packets\ClientPackets</Filter>
     </ClCompile>
     <ClCompile Include="ClientSettingsPacket.cpp">
+      <Filter>MinecraftFramework\Packets\ClientPackets</Filter>
+    </ClCompile>
+    <ClCompile Include="PluginMessagePacket.cpp">
       <Filter>MinecraftFramework\Packets\ClientPackets</Filter>
     </ClCompile>
   </ItemGroup>

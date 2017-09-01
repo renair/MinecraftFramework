@@ -1,4 +1,5 @@
-#ifndef  _CLIENT_SETTINGS_PACKET
+#ifndef _CLIENT_SETTINGS_PACKET
+#define _CLIENT_SETTINGS_PACKET
 
 #include "Packet.h"
 

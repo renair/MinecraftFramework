@@ -6,6 +6,7 @@
 #include "PlayerPacket.h"
 #include "PlayerPositionPacket.h"
 #include "ClientSettingsPacket.h"
+#include "PluginMessagePacket.h"
 
 //client bound packets
 #include "LoginSuccessPacket.h"

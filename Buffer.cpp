@@ -53,7 +53,7 @@ unsigned int& Buffer::offset() const
 	return _offset;
 }
 
-void Buffer::writeData(void* src, unsigned int len)
+void Buffer::writeData(const void* src, unsigned int len)
 {
 	if(offset()+len > _maxSize)
 	{

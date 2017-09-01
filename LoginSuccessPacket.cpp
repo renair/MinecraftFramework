@@ -1,4 +1,6 @@
 #include "LoginSuccessPacket.h"
+#include "ClientSettingsPacket.h"
+#include "PluginMessagePacket.h"
 
 using namespace Packets;
 using namespace ServerPackets;
@@ -45,6 +47,10 @@ Buffer LoginSuccessPacket::dump()
 
 void LoginSuccessPacket::handle(BufferedReaderWriter& io)
 {
+	ClientPackets::ClientSettingsPacket settings; //TODO fix it
+	io.sendData(settings.dump());
+	ClientPackets::PluginMessagePacket plugins; //default values
+	io.sendData(plugins.dump());
 	process();
 }
 
