@@ -48,7 +48,7 @@ bool TcpClientSocket::connect(const char* host, const char* port)
 	hints.ai_family = AF_INET;
 	hints.ai_socktype = SOCK_STREAM;
 	hints.ai_protocol = IPPROTO_TCP;
-	if (int a = getaddrinfo(host, port, &hints, &_addrinfo)) //return 0 on success
+	if (getaddrinfo(host, port, &hints, &_addrinfo)) //return 0 on success
 	{
 		std::cout << "Can't found " << host << ':' << port << std::endl;
 		return false;
@@ -89,32 +89,32 @@ int TcpClientSocket::read(char* buff, unsigned int len) const
 {
 	if(!isConnected())
 	{
-		std::cout << "Socket is not conencted. Can not read." << std::endl;
+		std::cout << "Socket is not connected. Can not read." << std::endl;
 		return -1;
 	}
-	int bytesReaded = recv(_socket, buff, len, 0);
-	if(bytesReaded < 0)
+	int bytesRead = recv(_socket, buff, len, 0);
+	if(bytesRead < 0)
 	{
 		std::cout << "Can not read from socket." << std::endl;
 		_isConnected = false;
 	}
-	return bytesReaded;
+	return bytesRead;
 }
 
 int TcpClientSocket::write(const char* buff, unsigned int len) const
 {
 	if(!isConnected())
 	{
-		std::cout << "Socket is not conencted. Can not write." << std::endl;
+		std::cout << "Socket is not connected. Can not write." << std::endl;
 		return -1;
 	}
-	int bytesWrited = send(_socket, buff, len, 0);
-	if(bytesWrited < 0)
+	int bytesWritten = send(_socket, buff, len, 0);
+	if(bytesWritten < 0)
 	{
 		std::cout << "Can not write to socket." << std::endl;
 		_isConnected = false;
 	}
-	return bytesWrited;
+	return bytesWritten;
 }
 
 void TcpClientSocket::close() const
